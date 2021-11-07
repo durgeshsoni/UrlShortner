@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import django_heroku
-import dj_database_url
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-7x*eaig)a*%j@77&&cn46$dhnz(m#^oqc%wg*paknsc)io&o_$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -70,14 +70,18 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'urlshortner.wsgi.application'
+WSGI_APPLICATION = 'Home.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
- 'default': dj_database_url.config()
+    'default': {
+        'ENGINE':'django.db.backends.sqlite3',
+        'NAME':BASE_DIR / 'db.sqlite3'
+    }
+
 }
 
 
@@ -123,4 +127,3 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-django_heroku.settings(locals())
